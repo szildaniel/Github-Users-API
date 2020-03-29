@@ -1,0 +1,20 @@
+@import 'variables';
+
+* {
+ margin: 0;
+ padding: 0;
+
+}
+body {
+  font-family: $font-main, sans-serif;
+  color: white;
+  background: #1c132d;
+}
+
+h1{
+  font-family: $font-header;
+}
+.highlight{
+  background: linear-gradient(180deg, rgba(255,255,255,0) 35%, $yellow 80%);
+  // border-bottom: $yellow 6px solid;
+}
