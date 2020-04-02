@@ -92,6 +92,9 @@ input[type=text]{
   h2{
     text-align: center;
   }
+  .repoLink{
+    padding-left: 2rem;
+  }
 }
 
 .resultLeft{
@@ -115,5 +118,24 @@ input[type=text]{
   border: 2px solid gray;
   padding: 1rem 2rem;
    margin: 1.5rem 0;
-
+   transition: .2s;
+   align-items: center;
+  &:hover{
+    transform: scale(1.12);
+    background: #191127;
+    transition: .2s;
+    border: 2px solid white;
+  }
+  &.lightTheme{
+    &:hover{
+      background: mix($light-mint, white, 80%);
+      border: 2px solid rgb(44, 44, 44);
+    }
+  }
+  h3{
+    width: 65%;
+  }
+  p{
+    font-weight: bold;
+  }
 }
