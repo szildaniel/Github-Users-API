@@ -15,11 +15,9 @@ library.add(faSun, faMoon, faMapMarkerAlt, faLink);
 const searchGithubUser = async userName =>
   (await fetch(`https://api.github.com/users/${userName}`)).json();
 
-const useSearchGithubUser = () => {
-  // Handle the input text state
+function useSearchGithubUser() {
   const [inputText, setInputText] = useState("");
 
-  // Debounce the original search async function
   const debouncedSearchGithubUser = useConstant( () =>
     AwesomeDebouncePromise(searchGithubUser, 300)
   );
@@ -32,11 +30,9 @@ const useSearchGithubUser = () => {
         return debouncedSearchGithubUser(inputText);
       }
     },
-    // Ensure a new request is made everytime the text changes (even if it's debounced)
     [inputText]
   );
 
-  // Return everything needed for the hook consumer
   return {
     inputText,
     setInputText,
@@ -45,13 +41,9 @@ const useSearchGithubUser = () => {
 };
 
 
-
-
-
 function App() {
   const [theme, setTheme] = useState('dark');
   const {inputText, setInputText, search} = useSearchGithubUser();
- 
 
   return (
       <div className= { theme==='dark' ? "App" : "App light" }>

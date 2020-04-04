@@ -4,12 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Result = props => {
   const { loading, error, result } = props.search;
-  if (result === []){
-    console.log('result is empty');
-  }
+ 
   return (
     <div>
-      {loading && <div>Loading user data ... </div>}
+      {loading && <div className="loadingDiv">Loading user data ... </div>}
       {error && <div>Error: {error.message}</div>}
       {result && (
         <div className="resultContainer">

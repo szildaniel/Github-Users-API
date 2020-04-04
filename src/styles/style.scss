@@ -1,14 +1,15 @@
-@import 'variables';
+@import "variables";
+@import "breakpoints";
 
 * {
- margin: 0;
- padding: 0;
-
+  margin: 0;
+  padding: 0;
 }
 body {
   font-family: $font-main, sans-serif;
 }
-.App{
+
+.App {
   min-width: 100vw;
   min-height: 100vh;
   color: white;
@@ -16,45 +17,65 @@ body {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: 60vw;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  &.light{
+  &.light {
     background: $light-mint;
     color: black;
   }
 }
-h1{
+h1 {
   font-family: $font-header;
 }
-.highlight{
-  background: linear-gradient(180deg, rgba(255,255,255,0) 35%, $yellow 80%);
+.highlight {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 35%, $yellow 80%);
   // border-bottom: $yellow 6px solid;
 }
 
-header{
+header {
   margin-top: 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 64px;
   width: 60vw;
- svg{
-   cursor: pointer;
- }
+  svg {
+    cursor: pointer;
+  }
+  @include breakpoint(mobileonly) {
+    width: 90vw;
+    margin-top: 1rem;
+  }
+  @include breakpoint(phablet) {
+    width: 85vw;
+    margin-top: 1.2rem;
+  }
 }
-form{
+form {
   width: 60vw;
   margin-top: 3rem;
+  @include breakpoint(mobileonly) {
+    width: 90vw;
+    input[type="text"] {
+      width: 60%;
+    }
+  }
+  @include breakpoint(phablet) {
+    width: 85vw;
+    input[type="text"] {
+      width: 31%;
+    }
+  }
+  
 }
-input[type=text]{
+input[type="text"] {
   font-family: "Open Sans", sans-serif;
   font-size: 1.2rem;
-  background: url('/img/search-icon.png');
+  background: url("/img/search-icon.png");
   background-repeat: no-repeat;
   background-color: white;
-  background-size:contain;
+  background-size: contain;
   width: 20%;
   border: 4px solid $yellow;
   border-radius: 5px;
@@ -62,80 +83,191 @@ input[type=text]{
   padding: 8px 0;
   margin: 10px 0px;
   padding-left: 70px;
-  &:focus{
-  outline:none;
-  border: 4px solid #fcdd60;
+  &:focus {
+    outline: none;
+    border: 4px solid #fcdd60;
   }
- }
+}
 
- .resultContainer{
-   margin-top: 3rem;
-   width: 60vw;
-   border: 4px solid $yellow;
-   box-sizing: border-box;
-   padding: 10px 20px;
-   display: flex;
-   justify-content: space-between;
- }
+.resultContainer {
+  margin-top: 3rem;
+  width: 60vw;
+  border: 4px solid $yellow;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  @include breakpoint(mobileonly) {
+    width: 95vw;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 2px;
+    margin: 3rem 0;
+  }
+  @include breakpoint(phablet) {
+    width: 85vw;
+  }
+}
 
-.resultRight{
+.resultRight {
   width: 50%;
   margin: 2rem;
   .repo {
     width: 40px;
-    height:40px;
+    height: 40px;
   }
-  .empty__input{
+  .empty__input {
     margin-top: 2rem;
     text-align: center;
   }
-  h2{
+  h2 {
     text-align: center;
+    font-family: $font-header;
   }
-  .repoLink{
+  .repoLink {
     padding-left: 2rem;
+  }
+  @include breakpoint(mobileonly) {
+    width: 100%;
+    margin: 0;
+    .repoContainer {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0.5rem 0.3rem;
+      margin: 1.5rem 0.5rem;
+      h3 {
+        width: 100%;
+        text-align: center;
+      }
+      p {
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+        font-weight: 300;
+        svg {
+          font-size: 1.25rem;
+        }
+      }
+    }
+    .empty__input,
+    h2 {
+      margin: 1.5rem 0;
+    }
+  }
+  @include breakpoint(phablet) {
+    margin: 0;
+    padding: 2rem 1rem;
+    .repoContainer {
+      padding: 1rem 0.5rem;
+      flex-direction: column;
+      h3 {
+        width: 100%;
+        text-align: center;
+      }
+      p {
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+        font-weight: 300;
+        svg {
+          font-size: 1.25rem;
+        }
+      }
+    }
   }
 }
 
-.resultLeft{
+.resultLeft {
   padding: 2rem 4rem;
-  img{
+  img {
     width: 250px;
     border-radius: 5px;
   }
-  .bio{
+  .bio {
     font-style: italic;
     margin: 1rem 0;
   }
-  .locationText{
+  .locationText {
     margin-left: 7px;
+  }
+  @include breakpoint(mobileonly) {
+    padding: 1rem 0rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      padding-top: 0.5rem;
+    }
+    .locationText {
+      font-size: 1.25rem;
+    }
+    .bio {
+      font-size: 1.15rem;
+    }
+    span {
+      font-size: 1.5rem;
+    }
+  }
+  @include breakpoint(phablet) {
+    padding: 2rem 1rem;
+    h2{
+      font-size: 1.3rem;
+    }
+  }
+  .loadingDiv{
+    margin-top:2rem;
   }
 }
 
-.repoContainer{
+.repoContainer {
   display: flex;
   justify-content: space-between;
   border: 2px solid gray;
   padding: 1rem 2rem;
-   margin: 1.5rem 0;
-   transition: .2s;
-   align-items: center;
-  &:hover{
+  margin: 1.5rem 0;
+  transition: 0.2s;
+  align-items: center;
+  &:hover {
     transform: scale(1.12);
     background: #191127;
-    transition: .2s;
+    transition: 0.2s;
     border: 2px solid white;
   }
-  &.lightTheme{
-    &:hover{
+  &.lightTheme {
+    &:hover {
       background: mix($light-mint, white, 80%);
       border: 2px solid rgb(44, 44, 44);
     }
+    @include breakpoint(mobileonly) {
+      padding: 1rem 0.5rem;
+      margin: 1.5rem 0.3rem;
+    }
   }
-  h3{
+  h3 {
     width: 65%;
   }
-  p{
+  p {
     font-weight: bold;
   }
+}
+@include breakpoint(desktop) {
+  header, form{
+    width: 60vw;
+    input[type="text"] {
+      width: 20%;
+    }
+  }
+  .resultContainer{
+    width: 60vw;
+  }
+  .resultLeft{
+    padding: 2rem 4rem;
+    h2{
+      font-size: 1.5rem;
+      padding: 1rem 0;
+    }
+  }
+  
 }

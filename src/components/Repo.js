@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAsync } from "react-async-hook";
 
+
 const fetchGithubRepos = async url => (await fetch(`${url}`)).json();
 
 const Repo = props => {
@@ -19,17 +20,15 @@ const Repo = props => {
       {githubRepos.error && <div>Error: {githubRepos.error.message}</div>}
       {githubRepos.result &&
         githubRepos.result.map((repo, i) => (
-          <div
-            className={
-              props.theme === "dark"
+          <div className={props.theme === "dark"
                 ? "repoContainer"
-                : "repoContainer lightTheme"
-            }
-            key={i}
+                : "repoContainer lightTheme"}
+              key={i}
           >
             <h3>{repo.name}</h3>
             <p>
-              {repo.language}
+              {" "}
+              language - {repo.language}
               <a
                 className="repoLink"
                 target="_blank"
