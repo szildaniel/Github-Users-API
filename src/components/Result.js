@@ -13,33 +13,33 @@ const Result = props => {
         <div className="resultContainer">
           <div className="resultLeft">
             <img src={
-              props.search.result.length === 0 ? 
-              `/img/default-user.png` :
-              props.search.result.avatar_url
+              result.length === 0 ? 
+              `/Github-Users-API/img/default-user.png` :
+              result.avatar_url
               } 
               alt="Avatar" />
             <h2>{
-            props.search.result.length === 0 ? 
+            result.length === 0 ? 
             'Enter username in input' :
-            props.search.result.name
+            result.name
             }
             </h2>
-            <p className="bio">{props.search.result.bio}</p>
+            <p className="bio">{result.bio}</p>
             <div className="location">
               <span>
                 <FontAwesomeIcon icon="map-marker-alt" />
               </span>
               <span className="locationText">
                 {
-                props.search.result.length === 0 ? 
+                result.length === 0 ? 
                 'Somewhere in wonderfull world' :
-                props.search.result.location
+                result.location
                 }
               </span>
             </div>
           </div>
           <div className="resultRight">
-            <Repo theme={props.theme} url={props.search.result.repos_url} />
+            <Repo theme={props.theme} url={result.repos_url} />
           </div>
         </div>
       )}

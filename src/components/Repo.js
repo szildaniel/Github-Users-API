@@ -1,31 +1,32 @@
 import React, {useState, useEffect} from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAsync } from "react-async-hook";
+import RepoList from './RepoList';
+
+import { useAsync } from 'react-async-hook';
+import useConstant from "use-constant";
+import AwesomeDebouncePromise  from 'awesome-debounce-promise';
+
 import randomInt from '../helper';
 
-
 const fetchGithubRepos = async url => (await fetch(`${url}`)).json();
-
+  
 function useRandomUserRepos(url, options) {
-  const [allRepos, setAllRepos] = useState();
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [reducedRepos, setReducedRepos] = useState();
+ 
+    const [reducedRepos, setReducedRepos] = useState();
+    const debouncedFetchGithubUser = useConstant( () => 
+      AwesomeDebouncePromise(fetchGithubRepos, 300)
+    );
 
-  useEffect( () => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      try {
-        const res = await fetch(url, options);
-        const json = await res.json();
-        setAllRepos(json);
-        setIsLoading(false);
-      } 
-      catch (error) {
-        setError(error);
-     }
-    }; fetchData();
-  }, [url])
+    const allRepos = useAsync(
+      async () => {
+        if(!url){
+          return [];
+        }
+        else {
+          return debouncedFetchGithubUser(url);
+        }
+      },
+      [url]
+    );
 
   useEffect( () => {
     const reduceAllRepos = arr => {
@@ -40,52 +41,26 @@ function useRandomUserRepos(url, options) {
       };
       setReducedRepos(fourRepos);
     }; 
-    reduceAllRepos(allRepos);
-  }, [allRepos])
-   
+    reduceAllRepos(allRepos.result);
 
-  return { allRepos, error, isLoading, reducedRepos }
-}
+  }, [allRepos.result])
+   
+  return { allRepos, reducedRepos };
+};
 
 const Repo = props => {
-const githubRepos = useRandomUserRepos(props.url, {})
-  
-  return typeof githubRepos.allRepos === 'undefined' ? (
-    <h3 className="empty__input">
-      That is place for user repositories, please enter username to see user
-      repos.
-    </h3>
-  ) : (
+const [url, setUrl] = useState(props.url);
+const githubRepos = useRandomUserRepos(url, {})
+const {loading, error, result} = githubRepos.allRepos;
+
+
+  return  (
     <div>
       <h2>Repositories</h2>
-      {githubRepos.isLoading && <div>Loading</div>}
-      {githubRepos.error && <div>Error: {githubRepos.error.message}</div>}
-      {githubRepos.reducedRepos &&
-        githubRepos.reducedRepos.map((repo, i) => (
-          <div className={props.theme === "dark"
-                ? "repoContainer"
-                : "repoContainer lightTheme"}
-              key={i}
-          >
-            <h3>{repo.name}</h3>
-            <p>
-              {" "}
-              language - {repo.language}
-              <a
-                className="repoLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                disabled={!props.url}
-                href={repo.html_url}
-              >
-                <FontAwesomeIcon
-                  color={props.theme === "dark" ? "white" : "black"}
-                  icon="link"
-                />
-              </a>
-            </p>
-          </div>
-        ))}
+      {loading && <div>Loading</div>}
+      {error && <div>Error: {error.message}</div>}
+      {result && (<RepoList theme={props.theme} repos={githubRepos.reducedRepos}/>)
+       }
     </div>
   );
 };
