@@ -1,5 +1,6 @@
 import React from "react";
 import Repo from "./Repo";
+import Error from "./Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Result = props => {

@@ -7,7 +7,7 @@
 }
 body {
   font-family: $font-main, sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .App {
@@ -261,12 +261,17 @@ input[type="text"] {
 @include breakpoint(desktop) {
   header, form{
     width: 60vw;
+    margin-top: 1.2rem;
     input[type="text"] {
       width: 20%;
+    }
+    h1{
+      font-size: 1.8rem;
     }
   }
   .resultContainer{
     width: 60vw;
+    margin-top: 1.2rem;
   }
   .resultLeft{
     padding: 2rem 4rem;
@@ -285,4 +290,12 @@ input[type="text"] {
 .allRepos div{
   visibility: hidden;
   opacity: 0;
+}
+
+.errorContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  p{text-align: center; margin-top: .5rem};
 }

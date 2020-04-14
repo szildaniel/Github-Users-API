@@ -6,8 +6,8 @@ const Header = props => {
     <header>
       <h1><span className="highlight">Github Users</span></h1>
       {props.theme === "dark" ? 
-        <FontAwesomeIcon icon="sun" size="2x" color="#dcba31"  onClick={ () => props.setTheme('light') }/>
-        :  <FontAwesomeIcon icon="moon" size="2x" color="#1c132d" onClick={ () => props.setTheme('dark') }/>}
+        <FontAwesomeIcon data-testid="icon-sun" icon="sun" size="2x" color="#dcba31"  onClick={ () => props.setTheme('light') }/>
+        :  <FontAwesomeIcon data-testid="icon-moon" icon="moon" size="2x" color="#1c132d" onClick={ () => props.setTheme('dark') }/>}
     </header>
   );
 }
